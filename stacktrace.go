@@ -16,7 +16,6 @@ package stacktrace
 
 import (
 	"fmt"
-	"math"
 	"runtime"
 	"strings"
 
@@ -107,12 +106,12 @@ Avoid using that value as an error code.
 
 An ordinary stacktrace.Propagate call preserves the error code of an error.
 */
-type ErrorCode uint16
+type ErrorCode error
 
 /*
 NoCode is the error code of errors with no code explicitly attached.
 */
-const NoCode ErrorCode = math.MaxUint16
+var NoCode ErrorCode = nil
 
 /*
 NewErrorWithCode is similar to NewError but also attaches an error code.
@@ -245,5 +244,5 @@ func (st *stacktrace) ExitCode() int {
 	if st.code == NoCode {
 		return 1
 	}
-	return int(st.code)
+	return 0
 }
